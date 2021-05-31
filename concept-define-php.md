@@ -26,12 +26,12 @@ Trong OOP có 1 vài khái niệm quan trọng cần phải nắm chắc:
 - keyword **$this**
 - Hàm tạo **\_\_construct()**
 
-### <span style="color:green">Class: lớp</span>
+### 3.1 Class: lớp
 
 - Class giống như 1 bản thiết kế (khuôn mẫu) để tạo ra các đối tượng có đặc tính giống nhau
 - Class gồm có 2 thàh phần chính là: Thuộc tính (properties) và phương thức (methods)
 
-<span style="color:blue; font-size:19px">Tạo class.</span>
+Tạo class.
 
 ```php
 class Car {
@@ -39,7 +39,7 @@ class Car {
 }
 ```
 
-<span style="color:blue; font-size:19px">Thêm thuộc tính vào class.</span>
+Thêm thuộc tính vào class.
 
 ```php
 class Car {
@@ -49,7 +49,7 @@ class Car {
 }
 ```
 
-<span style="color:blue; font-size:19px">Thêm phương thức vào class.</span>
+Thêm phương thức vào class.
 
 ```php
 class Car {
@@ -64,7 +64,7 @@ class Car {
 }
 ```
 
-### <span style="color:green">Object: đối tượng</span>
+### 3.2 Object: đối tượng
 
 - Đối tượng có thể hiểu là 1 thực thể: người, vật, hay 1 bảng dữ liệu...
 - Một đối tượng bao gồm 2 thông tin : Thuộc tính và Phương thức
@@ -73,7 +73,7 @@ class Car {
 
 > Lưu ý: một đối tượng không nhất thiết phải có thuộc tính hay phương thức, tùy vào mục đích sử dụng của lập trình viên
 
-<span style="color:blue; font-size:19px">Tạo object (đối tượng) từ class (lớp).</span>
+#### Tạo object (đối tượng) từ class (lớp).
 
 - Ta dùng từ khóa **new** để khởi tạo object từ 1 class
 
@@ -91,7 +91,7 @@ class Car {
 $bwm = new Car();
 ```
 
-<span style="color:blue; font-size:19px">Lấy ra các thuộc tính và phương thức từ object.</span>
+#### Lấy ra các thuộc tính và phương thức từ object.
 
 - Các **_thuộc tính_** và **_phương thức_** của **_class_** được chia sẻ cho các **_object_** tạo ra từ nó.
 
@@ -111,29 +111,39 @@ echo $bwm->name; // bwm
 echo $bwm->hello(); // Tôi tên là: bwm
 ```
 
-### <span style="color:green">Từ khóa $this</span>
+### Từ khóa $this
 
 - Từ khóa **$this** cho phép ta có quyền truy cập và sử dụng các thuộc tính và phương thức trong phạm vi của **class**.
-- Hiểu đơn giản thì nó tượng trưng cho chính class chứa nó.
+- Từ khóa **$this** chỉ tồn tại trong phương thức của class chứa phương thức đó.
+- Từ khóa **$this** chỉ đến **object** đang thực thi phương thức có chứa nó.
 
-```php
-class Car {
-  var $price = 10000;
+  - Phương thức được thực thi nhằm mục đích lấy ra/thay đổi giá trị của thuộc tính trong object đó.
+  - Hoặc cũng có thể sử dụng để gọi 1 hành động khác từ trong hành động đang đc thực thi.
 
-  public function hello(){
-    echo "Tôi có giá: $" . $this->price;
+  ```php
+  class Car {
+    var $name = "bwm";
+    var $price = 10000;
+
+    public function getName(){
+      return $this->name;
+    }
+    public function hello(){
+      echo "Tôi tên là: ". $this->getName() . " - Tôi có giá: $" . $this->price;
+    }
   }
-}
-$bwm = new Car();
-echo $bwm->hello(); // Tôi có giá: $10000
-```
+  $bwm = new Car();
+  echo $bwm->hello(); // Tôi tên là: bwm Tôi có giá: $10000
+  ```
 
-### <span style="color:green">Hàm tạo \_\_constructor</span>
+### Hàm tạo \_\_constructor
 
-- **\_\_construct()** kiểu hàm đặc biệt mà sẽ được gọi tự động bất cứ khi nào có một sự tạo thành đối tượng từ một Class. Hay hiểu đơn giản thì nó là khuôn mẫu để tạo ra các đối tượng từ class
+- **\_\_construct()** kiểu hàm đặc biệt mà sẽ được gọi tự động bất cứ khi nào có một sự tạo thành đối tượng từ một Class.
 - Hàm tạo luôn chạy đầu tiên khi khởi tạo đối tượng, nếu ta không khai báo thì nó ngầm định sinh ra hàm **\_\_contruct**.
+- Hàm tạo có thể nhận ít nhất một đối số, được gọi là hàm tạo được tham số hóa.
+- Khi một đối tượng được khai báo trong một hàm tạo được tham số hóa, các giá trị truyền vào phải được chuyển làm **đối số** cho hàm tạo
 
-<span style="color:blue; font-size:19px">Tạo class không có \_\_constructor().</span>
+Tạo class không có \_\_constructor().
 
 ```php
 class Car{
@@ -143,7 +153,7 @@ $mercedes = new Car();
 echo $mercedes->name; //Mercedes
 ```
 
-<span style="color:blue; font-size:19px">Tạo class có \_\_constructor().</span>
+Tạo class có \_\_construct().
 
 ```php
 class Car{
@@ -157,12 +167,12 @@ class Car{
 // Nếu khai báo k truyền đủ đối số như hàm tạo __construc thì sẽ báo lỗi
 $mercedes = new Car(); // Uncaught ArgumentCountError: Too few arguments to function Car::__construct()
 
-// Vì thế ta cần chú ý khi khởi tạo đối tượng
+// Vì thế ta cần chú ý truyền đủ đối số khi khởi tạo đối tượng
 $mercedes = new Car("Audi");
 echo $mercedes->name; // Auti
 ```
 
-<span style="color:blue; font-size:19px">Cách viết hàm \_\_contruct không bị lỗi khi khởi tạo</span>
+Cách viết hàm \_\_contruct không bị lỗi khi khởi tạo.
 
 ```php
 class Car{
@@ -177,7 +187,8 @@ $mercedes = new Car();
 echo $mercedes->name; //
 ```
 
-> - Hàm tạo \_\_construct giúp chúng ta khởi tạo nhiều đối tượng với các thuộc tính khác nhau.
+> - Hàm tạo \_\_construct giúp chúng ta khởi tạo đối tượng với các thuộc tính khác nhau.
+> - Giúp tạo đối tượng nhanh chóng
 > - Vì hàm tạo luôn được chạy đầu tiên khi khởi tạo 1 đối tượng mới nên nó được sử dụng rất nhiều để giải nhiều bài toán khác nhau. Để hiểu rõ hơn mình sẽ nói ở phần khác nhé!
 
 ---
