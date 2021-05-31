@@ -222,7 +222,7 @@ echo "Tổng 2 số là: $returnValue"; //Tổng 2 số là: 40
   ```
 
   Phải chăng **_kế thừa_** (**_Inheritance_**) chỉ có mỗi như trên là hết? oh Nooo.. đó chỉ là basic nhất để ta làm quen với kế thừa. Thế nó còn những thứ gì hay ho hơn không?
-  Bài viết tới đây khá dài rồi nên mình xin phép phần sau mình sẽ nói rõ hơn về 4 tính chất của OOP nếu trên nhé ;)
+  Bài viết tới đây khá dài rồi nên mình xin phép phần sau mình sẽ nói rõ hơn về 4 tính chất của OOP đã nêu trên ;)
   Các bạn cần làm về chủ đề gì trong php thì hãy comment cho mình biết nhé.
 
 #### Cảm ơn các bạn đã theo dõi!
