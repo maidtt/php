@@ -136,14 +136,14 @@ echo $bwm->hello(); // Tôi tên là: bwm
   echo $bwm->hello(); // Tôi tên là: bwm Tôi có giá: $10000
   ```
 
-### Hàm tạo \_\_constructor
+### Hàm tạo \_\_construct
 
 - **\_\_construct()** kiểu hàm đặc biệt mà sẽ được gọi tự động bất cứ khi nào có một sự tạo thành đối tượng từ một Class.
-- Hàm tạo luôn chạy đầu tiên khi khởi tạo đối tượng, nếu ta không khai báo thì nó ngầm định sinh ra hàm **\_\_contruct**.
+- Hàm tạo luôn chạy đầu tiên khi khởi tạo đối tượng, nếu ta không khai báo thì nó ngầm định sinh ra hàm **\_\_construct**.
 - Hàm tạo có thể nhận ít nhất một đối số, được gọi là hàm tạo được tham số hóa.
 - Khi một đối tượng được khai báo trong một hàm tạo được tham số hóa, các giá trị truyền vào phải được chuyển làm **đối số** cho hàm tạo
 
-Tạo class không có \_\_constructor().
+Tạo class không có \_\_construct().
 
 ```php
 class Car{
@@ -172,7 +172,7 @@ $mercedes = new Car("Audi");
 echo $mercedes->name; // Auti
 ```
 
-Cách viết hàm \_\_contruct không bị lỗi khi khởi tạo.
+Cách viết hàm \_\_construct không bị lỗi khi khởi tạo.
 
 ```php
 class Car{
