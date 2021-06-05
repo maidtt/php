@@ -1,12 +1,23 @@
-## 1. Static keyword
+# Table of Content 📃
+
+- [1. Static keyword](#1-static-keyword)
+  - [1.1 Static Method](#11-static-method)
+  - [1.2 Static Properties](#12-static-properties)
+- [2. Self keyword](#2-self-keyword)
+- [3. Khác nhau giữa static và self](#3-difference-between-self-and-static)
+  - [3.1 Sử dụng new static và new self](#31-new-static-and-new-self)
+- [4. Parent keyword](#4-parent-keyword)
+- [5. Khác nhau giữa $this self và parent](#5-difference-between-this-self-and-parent)
+
+# Static keyword
 
 Việc khai báo các thuộc tính hoặc phương thức của lớp với từ khóa static làm cho chúng có thể truy cập được mà không cần khởi tạo lớp. Chúng cũng có thể được truy cập trong một đối tượng được khởi tạo.
 
 Thuộc tính và phương **static** được truy cập bằng [toán tử **::**](https://www.php.net/manual/en/language.oop5.paamayim-nekudotayim.php) và không thể truy cập thông qua toán tử đối tượng ( -> ).
 
-### 1.1 Static method
+## 1.1 Static method
 
-Vì các **phương thức staic** có thể gọi được mà không cần khởi tạo 1 dối tượng nên từ khóa **$this** khôn g sử dụng được bên trong các phương thức được khai báo là **static**.
+Vì các **phương thức staic** có thể gọi được mà không cần khởi tạo 1 dối tượng nên từ khóa **$this** không sử dụng được bên trong các phương thức được khai báo là **static**.
 
 ```php
 class Product {
@@ -18,7 +29,7 @@ class Product {
 Product::aStaticMethod(); // Hello World
 ```
 
-### 1.2 Static properties
+## 1.2 Static properties
 
 Có thể tham chiếu đến lớp bằng cách sử dụng một biến. Giá trị của biến không được là từ khóa (ví dụ: self, mẹ và static).
 
@@ -41,7 +52,7 @@ print $foo->my_static . "\n";      // Undefined "Property" my_static
 
 > Từ khóa $this không sử dụng với thuộc tính và phương thức **static**
 
-## 2. Self keyword
+# 2. Self keyword
 
 Như ví dụ trên ta thấy không truy cập được vào **thuộc tính static** với **$this**. Vậy làm thế nào để tiếp cận (sử dụng) các thuộc tính **static** trong lớp? lúc này ta cần sử dụng **static** và **self**
 
@@ -81,7 +92,9 @@ Number::getUseSelf();
 
 > **self** và **static** có thể gọi các phương thức không phải là static (non-static) và các hằng số **const**. Nó không thể truy cập tới **Thuộc tính** không phải là static.
 
-## 3. Khác nhau giữa static và self
+# 3. Difference between self and static
+
+Khác nhau giữa static và self
 
 _Mình có ví dụ sau:_
 
@@ -147,7 +160,65 @@ Các bạn thấy khác nhau rồi chứ?
 > - **Static**: Truy cập (tham chiếu) tới class hiện tại (có thể hiểu như $this)
 > - **Self**: Truy cập tới class khai báo (định nghĩa) ra nó
 
-## 4. Parent keyword
+## 3.1 new static and new self
+
+_Mình có ví dụ sau:_
+
+```php
+class ParentClass {
+
+    /* The new self */
+    public static function get_self() {
+      return new self();
+    }
+
+    /* The new static */
+    public static function get_static() {
+      return new static();
+    }
+}
+
+class ChildClass extends ParentClass {}
+
+echo get_class(ChildClass::get_self()); // ParentClass
+echo get_class(ChildClass::get_static()); // ChildClass
+echo get_class(ParentClass::get_self()); // ParentClass
+echo get_class(ParentClass::get_static()); // ParentClass
+```
+
+- `new static` và `new self` nếu ở trong cùng 1 class thì nó tạo ra đối tượng chính là class chứa nó
+
+Tiếp tục với ví dụ dưới đây xem chúng khác nhau như nào nhé?
+
+```php
+class ParentClass {
+
+    static function self_fn(){
+        $model = new self();
+        return $model;
+    }
+    static function static_fn(){
+        $model = new static();
+        return $model;
+    }
+}
+class Child extends ParentClass{
+    public $table = "tableChild";
+}
+var_dump(Child::self_fn());
+// object(ParentClass)#1 (0) {}
+
+var_dump(Child::static_fn());
+// object(Child)#1 (1) {
+//   ["table"]=>
+//   string(10) "tableChild"
+// }
+```
+
+- Như vậy `new static` tạo ra chính đối tượng chứa hàm static được gọi.
+- `new self` tạo ra đối tượng từ class chứa nó
+
+# 4. Parent keyword
 
 - **$this** đại diện cho của **lớp hiện tại**
 - **self::** đại diện cho chính **lớp tạo ra nó**.
@@ -215,7 +286,9 @@ echo $person->getInfo();
 // Tôi tên là : john. Năm nay tôi: 20
 ```
 
-## 5. Khác nhau giữa $this self:: và parent::
+# 5. Difference between this self and Parent
+
+Khác nhau giữa $this self và parent
 
 - **$this**
 
