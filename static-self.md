@@ -1,8 +1,11 @@
+Tiếp tục với series PHP hướng đối tượng bài này chúng ta sẽ tìm hiểu về 3 khái niệm khá là hay trong PHP hướng đối tượng đó là `Static`, `Self` và `Parent`.
+
 # Table of Content 📃
 
 - [1. Static keyword](#1-static-keyword)
-  - [1.1 Static Method](#11-static-method)
-  - [1.2 Static Properties](#12-static-properties)
+  - [1.1 Static là gì?](#11-static)
+  - [1.2 Static Method](#12-static-method)
+  - [1.3 Static Properties](#13-static-properties)
 - [2. Self keyword](#2-self-keyword)
 - [3. Khác nhau giữa static và self](#3-difference-between-self-and-static)
   - [3.1 Sử dụng new static và new self](#31-new-static-and-new-self)
@@ -11,11 +14,14 @@
 
 # Static keyword
 
-Việc khai báo các thuộc tính hoặc phương thức của lớp với từ khóa static làm cho chúng có thể truy cập được mà không cần khởi tạo lớp. Chúng cũng có thể được truy cập trong một đối tượng được khởi tạo.
+## 1.1 Static
 
-Thuộc tính và phương **static** được truy cập bằng [toán tử **::**](https://www.php.net/manual/en/language.oop5.paamayim-nekudotayim.php) và không thể truy cập thông qua toán tử đối tượng ( -> ).
+- `Static` trong lập trình hướng đối tượng là một thành phần tĩnh (có thể là thuộc tính hoặc phương thức) mà nó hoạt động như một biến toàn cục, dù cho nó có được xử lý ở trong bất kỳ một file nào đi nữa (trong cùng một chương trình) thì nó đều lưu lại giá trị cuối cùng mà nó được thực hiện vào trong lớp.
+- Việc khai báo các thuộc tính hoặc phương thức của lớp với từ khóa static làm cho chúng có thể truy cập được mà không cần khởi tạo lớp. Chúng cũng có thể được truy cập trong một đối tượng được khởi tạo.
 
-## 1.1 Static method
+- Thuộc tính và phương **static** được truy cập bằng [toán tử **::**](https://www.php.net/manual/en/language.oop5.paamayim-nekudotayim.php) và không thể truy cập thông qua toán tử đối tượng ( -> ).
+
+## 1.2 Static method
 
 Vì các **phương thức staic** có thể gọi được mà không cần khởi tạo 1 dối tượng nên từ khóa **$this** không sử dụng được bên trong các phương thức được khai báo là **static**.
 
@@ -29,9 +35,9 @@ class Product {
 Product::aStaticMethod(); // Hello World
 ```
 
-## 1.2 Static properties
+## 1.3 Static properties
 
-Có thể tham chiếu đến lớp bằng cách sử dụng một biến. Giá trị của biến không được là từ khóa (ví dụ: self, mẹ và static).
+Có thể tham chiếu đến lớp bằng cách sử dụng một biến. Giá trị của biến không được là từ khóa (ví dụ: self, parent và static).
 
 ```php
 class Foo
