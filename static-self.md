@@ -1,11 +1,12 @@
 Tiếp tục với series PHP hướng đối tượng bài này chúng ta sẽ tìm hiểu về 3 khái niệm khá là hay trong PHP hướng đối tượng đó là `Static`, `Self` và `Parent`.
 
-# Table of Content 📃
+## Table of Content 📃
 
 - [1. Static keyword](#1-static-keyword)
   - [1.1 Static là gì?](#11-static)
   - [1.2 Static Method](#12-static-method)
   - [1.3 Static Properties](#13-static-properties)
+  - [1.4 Ví dụ cụ thể](#14-example)
 - [2. Self keyword](#2-self-keyword)
 - [3. Khác nhau giữa static và self](#3-difference-between-self-and-static)
   - [3.1 Sử dụng new static và new self](#31-new-static-and-new-self)
@@ -18,7 +19,6 @@ Tiếp tục với series PHP hướng đối tượng bài này chúng ta sẽ 
 
 - `Static` trong lập trình hướng đối tượng là một thành phần tĩnh (có thể là thuộc tính hoặc phương thức) mà nó hoạt động như một biến toàn cục, dù cho nó có được xử lý ở trong bất kỳ một file nào đi nữa (trong cùng một chương trình) thì nó đều lưu lại giá trị cuối cùng mà nó được thực hiện vào trong lớp.
 - Việc khai báo các thuộc tính hoặc phương thức của lớp với từ khóa static làm cho chúng có thể truy cập được mà không cần khởi tạo lớp. Chúng cũng có thể được truy cập trong một đối tượng được khởi tạo.
-
 - Thuộc tính và phương **static** được truy cập bằng [toán tử **::**](https://www.php.net/manual/en/language.oop5.paamayim-nekudotayim.php) và không thể truy cập thông qua toán tử đối tượng ( -> ).
 
 ## 1.2 Static method
@@ -58,11 +58,78 @@ print $foo->my_static . "\n";      // Undefined "Property" my_static
 
 > Từ khóa $this không sử dụng với thuộc tính và phương thức **static**
 
+## 1.4 Example
+
+Ví dụ:
+
+```php
+// Lớp động vật
+class Animal
+{
+    protected $_name = 'Chưa có tên';
+
+    function setName($name){
+        $this->_name = $name;
+    }
+
+    function getName(){
+        return $this->_name;
+    }
+}
+
+// Phần 1: Con Vịt
+$con_vit = new Animal();
+$con_vit->setName('Con Vịt');
+echo $con_vit->getName();
+// Con Vịt
+
+// Phần 2: Con Heo
+$con_heo = new Animal();
+echo $con_heo->getName();
+// Chưa có tên
+```
+
+- Mình tạo object `$con_vit` và thiết lập tên cho nó là **'Con Vịt'**.
+- Tiếp theo tạo một object `$con_heo` và không có thiết lập tên cho nó
+- khi xuất tên ra màn hình thì Phần 1 xuất hiện chữ 'Con Vịt' còn Phần 2 thì xuất hiện chữ 'Chưa có tên'. Như vậy rõ ràng các thao tác trên object `$con_vit` không ảnh hưởng qua object `$con_heo`.
+
+Ví dụ với static:
+
+```php
+
+// Lớp động vật
+class Animal
+{
+    protected static $_name = 'Chưa có tên';
+
+    public static function setName($name){
+        Animal::$_name = $name;
+    }
+
+    public static function getName(){
+        return Animal::$_name;
+    }
+}
+
+// Phần 1: Con Vịt
+$con_vit = new Animal();
+$con_vit->setName('Con Vịt');
+echo $con_vit->getName();
+// Con Vịt
+
+// Phần 2: Con Heo
+$con_heo = new Animal();
+echo $con_heo->getName();
+// Con Vịt
+```
+
+- Ở cả Phần 1 và Phần 2 đều xuất ra màn hình là 'Con Vịt', lý do là mình sử dụng static và khi có thao tác thay đổi dữ liệu thì nó đều lưu vào trong class Animal nên khi khởi tạo thêm biến nó đều bị ảnh hưởng theo
+
 # 2. Self keyword
 
-Như ví dụ trên ta thấy không truy cập được vào **thuộc tính static** với **$this**. Vậy làm thế nào để tiếp cận (sử dụng) các thuộc tính **static** trong lớp? lúc này ta cần sử dụng **static** và **self**
+Ta không truy cập được vào **thuộc tính static** với **$this**. Vậy làm thế nào để tiếp cận (sử dụng) các thuộc tính **static** trong lớp? lúc này ta cần sử dụng **static** và **self**
 
-_Ví dụ với self_
+Ví dụ:
 
 ```php
 class Number {
@@ -313,3 +380,5 @@ Khác nhau giữa $this self và parent
   - parent:: giúp bạn có thể truy cập các thuộc tính tĩnh và phương thức tĩnh của lớp cha.
 
 > Với việc sử dụng self và parent, bạn cho phép tránh tham chiếu rõ ràng lớp theo tên.
+
+Tài liệu tham khảo: https://www.php.net/manual/en/language.oop5.static.php
